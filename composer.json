@@ -4,7 +4,7 @@
     "description": "Config is pregenerate bootstrap config file for web projects",
     "keywords": ["framework", "config"],
     "homepage": "http://dsda.ru/",
-    "license": "CC BY",
+    "license": "CC-BY-4.0",
     "authors": [
         {
             "name": "Eugene Che",
