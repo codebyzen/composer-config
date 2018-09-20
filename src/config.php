@@ -14,6 +14,7 @@ class config {
 	protected	$themeurl	= false;
 	private		$url		= false;
 	private		$path		= false;
+	private		$libPath	= null;
 
 	private		$debug		= true;
 	
@@ -38,20 +39,20 @@ class config {
 	function __construct(){
         $this->url = $this->get__global_url();
 		$this->path = $this->get__global_path();
-		if (!file_exists('data') || !file_exists('data/salt.php')) {
+		$this->libPath = dirname(__FILE__);
+		if (!file_exists($this->libPath.'/data') || !file_exists($this->libPath.'/data/salt.php')) {
 			$salt = '';
 			for($i=0;$i<=32;$i++){ 
 				$skparr = [34,39,47,92]; $z=rand(33,126); if (!in_array($z,$skparr)) 
 				$salt .= chr($z); 
 			}
-			if (!file_exists('data')) {
-				mkdir('data');
+			if (!file_exists($this->libPath.'/data')) {
+				mkdir($this->libPath.'/data');
 			}
-			file_put_contents('data/salt.php', '<?php $salt_pregen="'.$salt.'";');
-		} else {
-			include('data/salt.php');
-			$this->set('salt', $salt_pregen);
+			file_put_contents($this->libPath.'/data/salt.php', '<?php $salt_pregen="'.$salt.'";');
 		}
+		include($this->libPath.'/data/salt.php');
+		$this->set('salt', $salt_pregen);
 	}
 
     private function get__global_url(){
@@ -70,7 +71,9 @@ class config {
     }
 
     private function get__global_path(){
-        return dirname(dirname(__FILE__));
+		$reflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
+		$vendorDir = dirname(dirname(dirname($reflection->getFileName())));
+        return $vendorDir;
     }
 
 	function get($valuename) {
