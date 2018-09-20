@@ -26,7 +26,7 @@ class config {
 			'ATTR_ERRMODE'					=> 'ERRMODE_EXCEPTION',
 		),
 		'dbsqliteattr'	=>	SQLITE3_OPEN_READWRITE,
-		'dbname'		=>	'fsf',
+		'dbname'		=>	'databasename',
 		'charset'		=>	'utf8',
 		'dboptions' 	=>	array(
 			'PDO::MYSQL_ATTR_INIT_COMMAND'	=> 'set names utf8',
