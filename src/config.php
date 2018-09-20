@@ -14,7 +14,6 @@ class config {
 	protected	$themeurl	= false;
 	private		$url		= false;
 	private		$path		= false;
-	private		$libPath	= null;
 
 	private		$debug		= true;
 	
@@ -39,19 +38,19 @@ class config {
 	function __construct(){
         $this->url = $this->get__global_url();
 		$this->path = $this->get__global_path();
-		$this->libPath = dirname(__FILE__);
-		if (!file_exists($this->libPath.'/data') || !file_exists($this->libPath.'/data/salt.php')) {
+		$libPath = dirname(__FILE__);
+		if (!file_exists($libPath.'/data') || !file_exists($libPath.'/data/salt.php')) {
 			$salt = '';
 			for($i=0;$i<=32;$i++){ 
 				$skparr = [34,39,47,92]; $z=rand(33,126); if (!in_array($z,$skparr)) 
 				$salt .= chr($z); 
 			}
-			if (!file_exists($this->libPath.'/data')) {
-				mkdir($this->libPath.'/data');
+			if (!file_exists($libPath.'/data')) {
+				mkdir($libPath.'/data');
 			}
-			file_put_contents($this->libPath.'/data/salt.php', '<?php $salt_pregen="'.$salt.'";');
+			file_put_contents($libPath.'/data/salt.php', '<?php $salt_pregen="'.$salt.'";');
 		}
-		include($this->libPath.'/data/salt.php');
+		include($libPath.'/data/salt.php');
 		$this->set('salt', $salt_pregen);
 	}
 
