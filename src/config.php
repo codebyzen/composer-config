@@ -12,12 +12,13 @@ class config {
 	
 	protected	$themepath	= false;
 	protected	$themeurl	= false;
+	private		$assetsurl	= false;
 	private		$url		= false;
 	private		$path		= false;
 
 	private		$debug		= true;
 	
-	private		$salt		= NULL; 
+	private		$salt		= NULL;
 
 	private		$dbconfig	= array(
 		'dbpath'		=> 'data/sqlite.db',
