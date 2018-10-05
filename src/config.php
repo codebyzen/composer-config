@@ -5,7 +5,10 @@ namespace dsda\config;
 class config {
 
 	private		$dbtype				= 'sqlite';			// sqlite/mysql
-	private		$cookiename			= 'dsda';
+	private		$cookiename			= 'cookiename';
+	private		$appName			= 'applicationName';
+	private		$appVersion			= '0.1';
+	private		$appDeveloper		= 'Creator name';
 	/**
 	 * BELOW THIS LINE DO NOT EDIT ANYTHING
 	 */
@@ -16,7 +19,7 @@ class config {
 	private		$url		= false;
 	private		$path		= false;
 
-	private		$debug		= true;
+	private		$debug		= false;
 	
 	private		$salt		= NULL;
 
