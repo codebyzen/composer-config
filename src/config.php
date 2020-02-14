@@ -32,16 +32,14 @@ class config {
 		),
 		'dbsqliteattr'	=>	SQLITE3_OPEN_READWRITE,
 		'dbname'		=>	'databasename',
-		'charset'		=>	'utf8',
+		'dbcharset'		=>	'utf8',
 		'dboptions' 	=>	array(
 			'PDO::MYSQL_ATTR_INIT_COMMAND'	=> 'set names utf8',
 		),
-		'dsn'	=> array(
-			'dbhost'	=>'localhost',
-			'dbport'	=>3306,
-			'dbname'	=>'databasename',
-			'charset'	=>'utf8'
-		),
+
+		'dbhost'	=>'localhost',
+		'dbport'	=>3306
+
 	);
 
 
@@ -63,6 +61,24 @@ class config {
 		}
 		include($this->app_data.'config'.DIRECTORY_SEPARATOR.'salt.php');
 		$this->set('salt', $salt_pregen);
+		$this->get__overlay_options();
+	}
+
+	private function get__overlay_options() {
+		if (file_exists($this->app_data."config".DIRECTORY_SEPARATOR."config.json")) {
+			$json = json_decode(file_get_contents($this->app_data."config".DIRECTORY_SEPARATOR."config.json"), true);
+			foreach($json as $k=>$v) {
+				if (is_array($v)) {
+					if (!isset($this->$k)) {
+						$this->$k = $v;
+					} else {
+						$this->$k = array_replace_recursive($this->$k,$v);
+					}
+				} else {
+					$this->$k = $v;
+				}
+			}
+		}
 	}
 
     private function get__global_url(){
