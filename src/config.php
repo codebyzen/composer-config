@@ -53,7 +53,7 @@ class config {
 			if (!file_exists($this->app_data.'config')) {
 				mkdir($this->app_data.'config', 0777, true);
 			}
-			file_put_contents($this->app_data.'config'.DIRECTORY_SEPARATOR.'salt.php', '<?php $salt_pregen="'.$salt.'";');
+			file_put_contents($this->app_data.'config'.DIRECTORY_SEPARATOR.'salt.php', '<?php $salt_pregen=\''.$salt.'\';');
 		}
 		include($this->app_data.'config'.DIRECTORY_SEPARATOR.'salt.php');
 		$this->set('salt', $salt_pregen);
