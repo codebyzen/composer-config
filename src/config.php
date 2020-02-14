@@ -42,19 +42,19 @@ class config {
 	function __construct(){
         $this->url = $this->get__global_url();
 		$this->path = $this->get__global_path();
-		$libPath = dirname(__FILE__);
-		if (!file_exists($libPath.'/data') || !file_exists($libPath.'/data/salt.php')) {
+		$app_data = $this->path.DIRECTORY_SEPARATOR.'app_data'.DIRECTORY_SEPARATOR;
+		if (!file_exists($app_data.'config') || !file_exists($app_data.'config'.DIRECTORY_SEPARATOR.'salt.php')) {
 			$salt = '';
 			for($i=0;$i<=32;$i++){ 
 				$skparr = [34,39,47,92]; $z=rand(33,126); if (!in_array($z,$skparr)) 
 				$salt .= chr($z); 
 			}
-			if (!file_exists($libPath.'/data')) {
-				mkdir($libPath.'/data');
+			if (!file_exists($app_data.'config')) {
+				mkdir($app_data.'config', 0777, true);
 			}
-			file_put_contents($libPath.'/data/salt.php', '<?php $salt_pregen="'.$salt.'";');
+			file_put_contents($app_data.'config'.DIRECTORY_SEPARATOR.'salt.php', '<?php $salt_pregen="'.$salt.'";');
 		}
-		include($libPath.'/data/salt.php');
+		include($app_data.'config'.DIRECTORY_SEPARATOR.'salt.php');
 		$this->set('salt', $salt_pregen);
 	}
 
