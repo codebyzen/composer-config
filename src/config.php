@@ -36,6 +36,12 @@ class config {
 		'dboptions' 	=>	array(
 			'PDO::MYSQL_ATTR_INIT_COMMAND'	=> 'set names utf8',
 		),
+		'dsn'	=> array(
+			'dbhost'	=>'localhost',
+			'dbport'	=>3306,
+			'dbname'	=>'databasename',
+			'charset'	=>'utf8'
+		),
 	);
 
 
